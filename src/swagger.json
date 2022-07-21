@@ -1,0 +1,151 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "RentX Documentation",
+        "description": "This is an API for renting purposes",
+        "version": "1.0.0",
+        "contact": "email@email.com"
+    },
+    "paths": {
+        "/categories": {
+            "post": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "Creates a new category.",
+                "description": "Creates a new category of car with the name and description sent in the request body.",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    }
+                                },
+                                "example": {
+                                    "name": "Ford Ka",
+                                    "description": "Small popular car."
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Category created successfully."
+                    },
+                    "500": {
+                        "description": "Category already exists."
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "Lists all categories.",
+                "description": "Returns an array of all the registered categories.",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "name": {
+                                                "type": "string"
+                                            },
+                                            "description": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/categories/import": {
+            "post": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "Uploads a group of categories",
+                "description": "Uploads a group of categories from a csv file. The order of attributes is: name, description.",
+                "requestBody":{
+                    "content":{
+                        "multipart/form-data":{
+                            "schema": {
+                                "type": "object",
+                                "properties":{
+                                    "file":{
+                                        "type":"string",
+                                        "format": "binary"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "201":{
+                        "description": "Categories imported successfully. This import doesn't duplicate categories"
+                    }
+                }
+            }
+        },
+        "/specifications": {
+            "post": {
+                "tags": [
+                    "Specifications"
+                ],
+                "summary": "Creates a new specification",
+                "description": "Creates a new car specification",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/Specification"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Specification created successfully."
+                    },
+                    "500": {
+                        "description": "Category already exists."
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Specification": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                }
+            },
+            "example": {
+                "name": "Utilitário",
+                "description": "Carro para trabalhos como frete, geralmente a diesel"
+            }
+        }
+    }
+}

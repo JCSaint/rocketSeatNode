@@ -1,0 +1,21 @@
+DOCKER -------------------------------------------
+
+docker ps
+docker ps -a
+docker run -p 3333:3333 rentalx -> roda container com mapeamento de porta
+docker exec -it container_name /bin/bash
+docker stop container_id
+docker logs container_name
+docker logs container_name -f
+docker rm container_id
+
+docker-compose up
+docker-compose up -d
+docker-compose start
+docker-compose stop 
+docker-compose down -> remover tudo criado pelo docker compose
+
+TYPEORM -----------------------------------------------
+
+yarn typeorm migration:create -n MigrationName
+yarn typeorm migration:run
